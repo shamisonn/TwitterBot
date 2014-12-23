@@ -1,17 +1,16 @@
 package com.shamison;
 
-import com.shamison.config.Config;
+import com.shamison.TwitterUtils.OAuth;
 
 /**
  * Created by shamison on 14/12/15.
  */
 
 public class Main {
+	private static OAuth oAuth;
 	public static void main(String[] args) {
-		Config config = new Config();
-		config.setTokens("cccc","dddd");
-		System.out.println(config.getAccessToken());
-		System.out.println(config.getAccessTokenSecret());
+		oAuth = new OAuth();
+
 	}
 
 	public static Main getInstance(){

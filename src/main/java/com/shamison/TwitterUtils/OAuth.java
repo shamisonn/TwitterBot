@@ -1,4 +1,4 @@
-package com.shamison.oauth;
+package com.shamison.TwitterUtils;
 
 import com.shamison.config.Config;
 import twitter4j.Twitter;
@@ -14,12 +14,26 @@ public class OAuth {
 	private Twitter twitter;
 	private String pin;
 	private Config config;
+	private AccessToken accessToken;
 
-	OAuth(){
+	public OAuth(){
 		config = new Config();
 		twitter = TwitterFactory.getSingleton();
-		AccessToken accessToken
-				= new AccessToken(config.getAccessToken(),config.getAccessTokenSecret());
+		accessToken = new AccessToken(config.getAccessToken(),config.getAccessTokenSecret());
 		twitter.setOAuthAccessToken(accessToken);
+	}
+
+	public Twitter getTwitter() {
+		return twitter;
+	}
+
+	public boolean isOAuth() {
+		// accessTokenがnullだったら,falseを返す.
+		return null != accessToken;
+	}
+
+	// OAuthを開始する.
+	public void start() {
+
 	}
 }
