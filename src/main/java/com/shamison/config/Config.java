@@ -28,7 +28,7 @@ public class Config {
 		accessTokenSecret = properties.getProperty("accessTokenSecret");
 	}
 
-	public void setTokens(String token, String tokenSecret){
+	public void setTokens(String token, String tokenSecret) {
 		properties.setProperty("accessToken", token);
 		properties.setProperty("accessTokenSecret", tokenSecret);
 		try {
@@ -52,7 +52,7 @@ public class Config {
 	}
 
 	public String getFilePath() {
-		return Main.getInstance().getClass().getResource("/config.properties").toString().replaceFirst("file:","");
+		return Main.getInstance().getClass().getResource("/config.properties").toString().replaceFirst("file:", "");
 	}
 
 }
