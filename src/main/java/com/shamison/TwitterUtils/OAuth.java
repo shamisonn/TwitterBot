@@ -31,9 +31,9 @@ public class OAuth {
 		return twitter;
 	}
 
-	public boolean isOAuth() {
-		// accessTokenがnullだったら,falseを返す.
-		return null != accessToken;
+	public boolean isOAuthNull() {
+		// accessTokenがnullだったら,trueを返す.
+		return null == accessToken;
 	}
 
 	// OAuthを開始する.

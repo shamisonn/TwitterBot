@@ -10,6 +10,9 @@ public class Main {
 	private static OAuth oAuth;
 	public static void main(String[] args) {
 		oAuth = new OAuth();
+		if(oAuth.isOAuthNull()){
+			oAuth.start();
+		}
 
 	}
 
