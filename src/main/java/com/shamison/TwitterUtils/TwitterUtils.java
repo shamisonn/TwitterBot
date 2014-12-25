@@ -9,8 +9,9 @@ public class TwitterUtils {
 	private OAuth oAuth;
 	private Twitter twitter;
 
-	TwitterUtils(){
-		if(!oAuth.isOAuth()){
+	public TwitterUtils() {
+		oAuth = new OAuth();
+		if (oAuth.isOAuthNull()) {
 			oAuth.start();
 		}
 		twitter = oAuth.getTwitter();

@@ -39,6 +39,14 @@ public class Config {
 
 	}
 
+	public String getConsumerKey(){
+		return properties.getProperty("consumerKey");
+	}
+
+	public String getConsumerSecret(){
+		return properties.getProperty("consumerSecret");
+	}
+
 
 	public String getAccessToken() {
 		accessToken = properties.getProperty("accessToken");

@@ -15,7 +15,7 @@ public class Window {
 		jFrame.setBounds(200, 200, 200, 160);
 	}
 
-	public void show(){
+	public void open(){
 		jFrame.setVisible(true);
 	}
 }

@@ -1,5 +1,6 @@
 package com.shamison.TwitterUtils;
 
+import com.shamison.GUI.Window;
 import com.shamison.config.Config;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -20,11 +21,13 @@ public class OAuth {
 	private Config config;
 	private AccessToken accessToken;
 
-	public OAuth(){
+	public OAuth() {
 		config = new Config();
 		twitter = TwitterFactory.getSingleton();
-		accessToken = new AccessToken(config.getAccessToken(),config.getAccessTokenSecret());
-		twitter.setOAuthAccessToken(accessToken);
+		if (config.getAccessToken().length() > 0) {
+			accessToken = new AccessToken(config.getAccessToken(), config.getAccessTokenSecret());
+			twitter.setOAuthAccessToken(accessToken);
+		}
 	}
 
 	public Twitter getTwitter() {
@@ -45,6 +48,7 @@ public class OAuth {
 			e.printStackTrace();
 		}
 		reqUrl = requestToken.getAuthorizationURL();
-
+		Window window = new Window("OAuth画面");
+		window.open();
 	}
 }
