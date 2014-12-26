@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.peer.DesktopPeer;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -14,26 +13,29 @@ import java.net.URISyntaxException;
  *
  * Swingで実装するGUI部分のコード
  */
-
-public class Window implements ActionListener {
+public class OauthWindow implements ActionListener {
 	private JFrame jFrame;
 	private JComponent jComponent;
 	private JLabel jLabel;
 	private JPanel jPanel;
-	private JButton jButton;
+	private JButton oauthButton;
+	private JButton pinButton;
+	private JTextField jTextField;
 
-	public Window(String title){
+	private String pin;
+
+	public OauthWindow(String title){
 		jFrame = new JFrame(title);
 		jPanel = new JPanel();
 		jLabel = new JLabel();
-		jButton = new JButton("OPEN");
+		oauthButton = new JButton("OPEN");
+		pinButton = new JButton("PUSH");
+		jTextField = new JTextField("Input PIN Number Here.");
 
-		jButton.addActionListener(this);
+		oauthButton.addActionListener(this);
 
 		jFrame.setBounds(200, 200, 400, 160);
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
 
 	}
 
@@ -43,16 +45,27 @@ public class Window implements ActionListener {
 	}
 
 	public void open(){
-		jPanel.add(jButton);
+		jPanel.add(oauthButton);
 		jFrame.add(jPanel);
 		jFrame.pack();
 		jFrame.setVisible(true);
 	}
 
+	private void reOpen(){
+		jFrame.setVisible(false);
+		jPanel.removeAll();
+		jPanel.add(jTextField);
+		jPanel.add(pinButton);
+
+		jFrame.add(jPanel);
+		jFrame.setVisible(true);
+	}
+
+
 	@Override
 	public void actionPerformed(ActionEvent actionEvent) {
 		// Buttonが押された際,URL(OAuth認証のために)にアクセスする.
-		if (actionEvent.getSource() == jButton){
+		if (actionEvent.getSource() == oauthButton){
 			Desktop desktop = Desktop.getDesktop();
 			try {
 				URI uri = new URI(jLabel.getText());
@@ -62,6 +75,20 @@ public class Window implements ActionListener {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			this.reOpen();
 		}
+
+		if (actionEvent.getSource() == pinButton){
+			setPin(jTextField.getText());
+			jFrame.setVisible(false);
+		}
+	}
+
+	private void setPin(String pin) {
+		this.pin = pin;
+	}
+
+	public String getPin() {
+		return pin;
 	}
 }

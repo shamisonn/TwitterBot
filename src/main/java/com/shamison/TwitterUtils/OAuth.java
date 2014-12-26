@@ -1,14 +1,12 @@
 package com.shamison.TwitterUtils;
 
-import com.shamison.GUI.Window;
+import com.shamison.GUI.OauthWindow;
 import com.shamison.config.Config;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
-
-import javax.swing.*;
 
 /**
  * Created by shamison on 14/12/15.
@@ -48,8 +46,12 @@ public class OAuth {
 			e.printStackTrace();
 		}
 		reqUrl = requestToken.getAuthorizationURL();
-		Window window = new Window("OAuth画面");
-		window.setLabel(reqUrl);
-		window.open();
+		OauthWindow oauthWindow = new OauthWindow("OAuth画面");
+		oauthWindow.setLabel(reqUrl);
+		oauthWindow.open();
+	}
+
+	private void createTwitter(String pin){
+
 	}
 }
