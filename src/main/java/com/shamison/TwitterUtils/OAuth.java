@@ -18,10 +18,13 @@ public class OAuth {
 	private String pin;
 	private Config config;
 	private AccessToken accessToken;
+	private RequestToken requestToken;
 
 	public OAuth() {
 		config = new Config();
+		// twitterクラスを作成
 		twitter = TwitterFactory.getSingleton();
+		// configファイルに設定が記述済みの際は設定する
 		if (config.getAccessToken().length() > 0) {
 			accessToken = new AccessToken(config.getAccessToken(), config.getAccessTokenSecret());
 			twitter.setOAuthAccessToken(accessToken);
@@ -37,15 +40,18 @@ public class OAuth {
 		return null == accessToken;
 	}
 
-	// OAuthを開始する.
+	// OAuth認証を開始する.
 	public void start() {
-		RequestToken requestToken = null;
 		try {
+			// RequestTokenを取得
 			requestToken = twitter.getOAuthRequestToken();
 		} catch (TwitterException e) {
 			e.printStackTrace();
 		}
+		// pinコード取得用のURIを取得
 		reqUrl = requestToken.getAuthorizationURL();
+
+		//Pinコード取得のために専用のGUIを呼ぶ
 		OauthWindow oauthWindow = new OauthWindow("OAuth画面");
 		synchronized (oauthWindow) {
 			try {
@@ -57,12 +63,15 @@ public class OAuth {
 				e.printStackTrace();
 			}
 		}
-
-		System.out.println(oauthWindow.getPin());
+		createTwitter(oauthWindow.getPin());
 
 	}
 
 	private void createTwitter(String pin){
-
+		try {
+			accessToken = twitter.getOAuthAccessToken(requestToken, pin);
+		} catch (TwitterException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -12,6 +12,7 @@ public class Main {
 	private static TwitterUtils tu;
 	public static void main(String[] args) {
 		tu = new TwitterUtils();
+		tu.tweet("test");
 
 	}
 

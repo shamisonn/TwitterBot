@@ -24,40 +24,43 @@ public class OauthWindow extends Thread implements ActionListener {
 	private JButton pinButton;
 	private JTextField jTextField;
 
-	private int pin;
+	private String pin;
 
+	//初期状態の画面を作成する.
 	public OauthWindow(String title) {
 		jFrame = new JFrame(title);
 		jPanel = new JPanel();
 		jLabel = new JLabel();
 		oauthButton = new JButton("OPEN");
 		pinButton = new JButton("PUSH");
-		jTextField = new JTextField("Input PIN Number Here.");
+		jTextField = new JTextField("Input_PIN_Number_Here");
 
 		oauthButton.addActionListener(this);
 		pinButton.addActionListener(this);
 
 		jFrame.setBounds(200, 200, 400, 160);
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 	}
 
+	//同期処理を行い,pinコードを入力されるまで待つ.
 	@Override
 	synchronized public void run() {
 		open();
 		try {
-			// OauthWindowの処理をwait
+			// pinコードが入力されるまで処理をまつ
 			wait();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 
+	//LabelのSetter
 	public void setLabel(String labelName) {
 		jLabel.setText(labelName);
 		jPanel.add(jLabel);
 	}
 
+	//OAuthURIとOPENボタン画面を開く
 	public void open() {
 		jPanel.add(oauthButton);
 		jFrame.add(jPanel);
@@ -65,6 +68,7 @@ public class OauthWindow extends Thread implements ActionListener {
 		jFrame.setVisible(true);
 	}
 
+	// pin入力画面を開く
 	private void reOpen() {
 		jFrame.setVisible(false);
 		jPanel.removeAll();
@@ -89,25 +93,26 @@ public class OauthWindow extends Thread implements ActionListener {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			// pin入力画面に切り替える.
 			this.reOpen();
 		}
 
 		if (actionEvent.getSource() == pinButton
 				&& NumberUtils.isNumber(jTextField.getText())) {
-			setPin(Integer.parseInt(jTextField.getText()));
+			// pinコードを取得
+			setPin(jTextField.getText());
 			jFrame.setVisible(false);
 			jFrame.removeAll();
-			// pin取得と同時のwaitを解除
+			//waitを解除
 			notify();
 		}
 	}
 
-	private void setPin(int ipin) {
-		this.pin = ipin;
+	private void setPin(String pin) {
+		this.pin = pin;
 	}
 
-
-	public int getPin() {
+	public String  getPin() {
 		return pin;
 	}
 }
