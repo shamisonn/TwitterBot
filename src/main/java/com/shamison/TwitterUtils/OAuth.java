@@ -47,8 +47,19 @@ public class OAuth {
 		}
 		reqUrl = requestToken.getAuthorizationURL();
 		OauthWindow oauthWindow = new OauthWindow("OAuth画面");
-		oauthWindow.setLabel(reqUrl);
-		oauthWindow.open();
+		synchronized (oauthWindow) {
+			try {
+				oauthWindow.setLabel(reqUrl);
+				oauthWindow.start();
+				// OAuthの処理をwaitする.
+				oauthWindow.wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+		System.out.println(oauthWindow.getPin());
+
 	}
 
 	private void createTwitter(String pin){
