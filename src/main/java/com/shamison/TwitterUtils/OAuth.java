@@ -49,6 +49,7 @@ public class OAuth {
 		}
 		reqUrl = requestToken.getAuthorizationURL();
 		Window window = new Window("OAuth画面");
+		window.setLabel(reqUrl);
 		window.open();
 	}
 }
