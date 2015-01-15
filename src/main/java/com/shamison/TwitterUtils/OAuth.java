@@ -1,13 +1,11 @@
 package com.shamison.TwitterUtils;
 
-import com.shamison.config.Config;
+import com.shamison.config.OAuthConfig;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
-
-import javax.swing.*;
 
 /**
  * Created by shamison on 14/12/15.
@@ -17,13 +15,13 @@ public class OAuth {
 	private String reqUrl;
 	private Twitter twitter;
 	private String pin;
-	private Config config;
+	private OAuthConfig OAuthConfig;
 	private AccessToken accessToken;
 
 	public OAuth(){
-		config = new Config();
+		OAuthConfig = new OAuthConfig();
 		twitter = TwitterFactory.getSingleton();
-		accessToken = new AccessToken(config.getAccessToken(),config.getAccessTokenSecret());
+		accessToken = new AccessToken(OAuthConfig.getAccessToken(), OAuthConfig.getAccessTokenSecret());
 		twitter.setOAuthAccessToken(accessToken);
 	}
 

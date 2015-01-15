@@ -8,9 +8,11 @@ import com.shamison.TwitterUtils.OAuth;
 
 public class Main {
 	private static OAuth oAuth;
+	private static Config config;
+
 	public static void main(String[] args) {
 		oAuth = new OAuth();
-
+		load
 	}
 
 	public static Main getInstance(){
