@@ -1,6 +1,7 @@
 package com.shamison;
 
 import com.shamison.TwitterUtils.OAuth;
+import com.shamison.config.Config;
 
 /**
  * Created by shamison on 14/12/15.
@@ -12,7 +13,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		oAuth = new OAuth();
-		load
+		config = new Config();
 	}
 
 	public static Main getInstance(){

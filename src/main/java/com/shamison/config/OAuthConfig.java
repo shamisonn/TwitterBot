@@ -2,7 +2,6 @@ package com.shamison.config;
 
 
 import java.io.*;
-import java.net.URL;
 import java.util.Properties;
 
 import com.shamison.Main;
@@ -32,7 +31,7 @@ public class OAuthConfig {
 		properties.setProperty("accessToken", token);
 		properties.setProperty("accessTokenSecret", tokenSecret);
 		try {
-			properties.store(new FileOutputStream(new File(this.getFilePath())), "config.properties");
+			properties.store(new FileOutputStream(new File(this.getFilePath())), "oauth_config.properties");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -52,7 +51,7 @@ public class OAuthConfig {
 	}
 
 	public String getFilePath() {
-		return Main.getInstance().getClass().getResource("/config.properties").toString().replaceFirst("file:", "");
+		return Main.getInstance().getClass().getResource("/oauth_config.properties").toString().replaceFirst("file:", "");
 	}
 
 }
