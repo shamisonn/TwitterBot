@@ -27,10 +27,11 @@ public class OauthWindow extends Thread implements ActionListener {
 	private String pin;
 
 	//初期状態の画面を作成する.
-	public OauthWindow(String title) {
+	public OauthWindow(String title, String oauthUrl) {
 		jFrame = new JFrame(title);
 		jPanel = new JPanel();
 		jLabel = new JLabel();
+		setLabel(oauthUrl);
 		oauthButton = new JButton("OPEN");
 		pinButton = new JButton("PUSH");
 		jTextField = new JTextField("Input_PIN_Number_Here");
@@ -104,7 +105,7 @@ public class OauthWindow extends Thread implements ActionListener {
 			jFrame.setVisible(false);
 			jFrame.removeAll();
 			//waitを解除
-			notify();
+			notifyAll();
 		}
 	}
 

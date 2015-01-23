@@ -2,4 +2,4 @@ target
 .idea
 
 TwitterBot.iml
-src/main/resources/twitter4j.properties
+src/main/resources/oauth_consumer.properties

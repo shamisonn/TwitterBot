@@ -17,7 +17,8 @@
                 <directory>src/main/resources/</directory>
                 <includes>
                     <include>twitter4j.properties</include>
-                    <include>config.properties</include>
+                    <include>oauth_config.properties</include>
+                    <include>oauth_consumer.properties</include>
                 </includes>
             </resource>
         </resources>

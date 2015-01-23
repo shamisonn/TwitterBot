@@ -1,6 +1,7 @@
 package com.shamison;
 
 import com.shamison.TwitterUtils.OAuth;
+import com.shamison.TwitterUtils.TwitterUtils;
 import com.shamison.config.Config;
 
 /**
@@ -8,12 +9,13 @@ import com.shamison.config.Config;
  */
 
 public class Main {
-	private static OAuth oAuth;
 	private static Config config;
+	private static TwitterUtils tu;
 
 	public static void main(String[] args) {
-		oAuth = new OAuth();
 		config = new Config();
+		tu = new TwitterUtils();
+		tu.tweet("TESTマン");
 	}
 
 	public static Main getInstance(){

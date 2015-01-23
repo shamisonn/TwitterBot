@@ -3,6 +3,7 @@ package com.shamison.TwitterUtils;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
 
 /**
  * Created by shamison on 14/12/23.
@@ -12,11 +13,11 @@ public class TwitterUtils {
 	private Twitter twitter;
 
 	public TwitterUtils() {
-		oAuth = new OAuth();
+		this.oAuth = new OAuth();
 		if (oAuth.isOAuthNull()) {
-			oAuth.start();
+			oAuth.oauthStart();
 		}
-		twitter = oAuth.getTwitter();
+		twitter = TwitterFactory.getSingleton();
 	}
 
 	public void tweet(String tw){
