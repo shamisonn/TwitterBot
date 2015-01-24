@@ -4,7 +4,6 @@ import com.shamison.Main;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -16,8 +15,8 @@ public class OAuthConsumerConfig {
 
 	private Properties properties;
 
-	private String accessToken;
-	private String accessTokenSecret;
+	private String consumerKey;
+	private String consumerSecret;
 
 	public OAuthConsumerConfig() {
 		properties = new Properties();
@@ -26,34 +25,23 @@ public class OAuthConsumerConfig {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		accessTokenSecret = properties.getProperty("accessTokenSecret");
-	}
-
-	public void setTokens(String token, String tokenSecret) {
-		properties.setProperty("accessToken", token);
-		properties.setProperty("accessTokenSecret", tokenSecret);
-		try {
-			properties.store(new FileOutputStream(new File(this.getFilePath())), "oauth_config.properties");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		consumerSecret = properties.getProperty("consumerSecret");
 	}
 
 
-	public String getAccessToken() {
-		accessToken = properties.getProperty("accessToken");
-		return accessToken;
+	public String getConsumerKey() {
+		consumerKey = properties.getProperty("consumerKey");
+		return consumerKey;
 
 	}
 
-	public String getAccessTokenSecret() {
-		accessTokenSecret = properties.getProperty("accessTokenSecret");
-		return accessTokenSecret;
+	public String getConsumerSecret() {
+		consumerSecret = properties.getProperty("consumerSecret");
+		return consumerSecret;
 	}
 
 	public String getFilePath() {
 
-		return Main.getInstance().getClass().getResource("/oauth_config.properties").toString().replaceFirst("file:", "");
+		return Main.getInstance().getClass().getResource("/oauth_consumer.properties").toString().replaceFirst("file:", "");
 	}
 }
