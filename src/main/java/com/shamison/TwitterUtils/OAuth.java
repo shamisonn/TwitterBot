@@ -22,8 +22,7 @@ public class OAuth{
 	private AccessToken accessToken;
 
 	public OAuth(){
-		String consumerFilePath = Main.getInstance().getClass().getResource("/oauth_consumer.properties").toString().replaceFirst("file:", "");
-		OAuthConfig = new OAuthConfig(consumerFilePath);
+		OAuthConfig = new OAuthConfig();
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 
 		cb.setDebugEnabled(true)
