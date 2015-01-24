@@ -33,8 +33,7 @@ public class OAuth{
 				.setOAuthAccessToken(null)
 				.setOAuthAccessTokenSecret(null);
 		TwitterFactory tf = new TwitterFactory(cb.build());
-		Twitter twitter = tf.getInstance();
-		twitter = TwitterFactory.getSingleton();
+		twitter = tf.getInstance();
 		if (oAuthConfig.getAccessToken().length() < 1){
 			oauthStart();
 		}else {
@@ -42,10 +41,6 @@ public class OAuth{
 			twitter.setOAuthAccessToken(accessToken);
 		}
 
-	}
-
-	public Twitter getTwitter() {
-		return twitter;
 	}
 
 	public boolean isOAuthNull() {
@@ -76,5 +71,7 @@ public class OAuth{
 			e.printStackTrace();
 		}
 		twitter.setOAuthAccessToken(accessToken);
+		oAuthConfig.setTokens(accessToken.getToken(),accessToken.getTokenSecret());
+
 	}
 }
