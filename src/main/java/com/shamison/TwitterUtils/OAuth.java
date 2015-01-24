@@ -35,10 +35,10 @@ public class OAuth{
 		TwitterFactory tf = new TwitterFactory(cb.build());
 		Twitter twitter = tf.getInstance();
 		twitter = TwitterFactory.getSingleton();
-		if (OAuthConfig.getAccessToken().length() < 1){
+		if (oAuthConfig.getAccessToken().length() < 1){
 			oauthStart();
 		}else {
-			accessToken = new AccessToken(OAuthConfig.getAccessToken(), OAuthConfig.getAccessTokenSecret());
+			accessToken = new AccessToken(oAuthConfig.getAccessToken(), oAuthConfig.getAccessTokenSecret());
 			twitter.setOAuthAccessToken(accessToken);
 		}
 
