@@ -22,10 +22,9 @@ public class OAuth{
 	private AccessToken accessToken;
 
 	public OAuth(){
-		OAuthConfig = new OAuthConfig();
+		String consumerFilePath = Main.getInstance().getClass().getResource("/oauth_consumer.properties").toString().replaceFirst("file:", "");
+		OAuthConfig = new OAuthConfig(consumerFilePath);
 		ConfigurationBuilder cb = new ConfigurationBuilder();
-		String consumer =
-				Main.getInstance().getClass().getResource("/oauth_config.properties").toString().replaceFirst("file:", "");
 
 		cb.setDebugEnabled(true)
 				.setOAuthConsumerKey("")

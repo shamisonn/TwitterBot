@@ -27,11 +27,6 @@ public class OAuthConfig {
 		accessTokenSecret = properties.getProperty("accessTokenSecret");
 	}
 
-	// ConsumerKeyをloadするやつ
-	public OAuthConfig(String path){
-
-	}
-
 	public void setTokens(String token, String tokenSecret) {
 		properties.setProperty("accessToken", token);
 		properties.setProperty("accessTokenSecret", tokenSecret);
