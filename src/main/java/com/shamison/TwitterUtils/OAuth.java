@@ -1,9 +1,8 @@
 package com.shamison.TwitterUtils;
 
 import com.shamison.GUI.OauthWindow;
-import com.shamison.Main;
 import com.shamison.config.OAuthConfig;
-import twitter4j.Status;
+import com.shamison.config.OAuthConsumerConfig;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -18,12 +17,15 @@ import twitter4j.conf.ConfigurationBuilder;
 public class OAuth{
 	private String reqUrl;
 	private Twitter twitter;
-	private OAuthConfig OAuthConfig;
+	private OAuthConfig oAuthConfig;
+	private OAuthConsumerConfig oAuthConsumerConfig;
 	private AccessToken accessToken;
 
 	public OAuth(){
-		OAuthConfig = new OAuthConfig();
+		oAuthConfig = new OAuthConfig();
+		oAuthConsumerConfig = new OAuthConsumerConfig();
 		ConfigurationBuilder cb = new ConfigurationBuilder();
+
 
 		cb.setDebugEnabled(true)
 				.setOAuthConsumerKey("")
