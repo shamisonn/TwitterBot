@@ -25,6 +25,7 @@ public class OAuthConfig {
 			e.printStackTrace();
 		}
 		accessTokenSecret = properties.getProperty("accessTokenSecret");
+		accessToken = properties.getProperty("accessToken");
 	}
 
 	public void setTokens(String token, String tokenSecret) {
