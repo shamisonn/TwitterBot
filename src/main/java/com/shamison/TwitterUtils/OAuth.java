@@ -25,15 +25,14 @@ public class OAuth{
 		oAuthConfig = new OAuthConfig();
 		oAuthConsumerConfig = new OAuthConsumerConfig();
 		ConfigurationBuilder cb = new ConfigurationBuilder();
-
-
 		cb.setDebugEnabled(true)
-				.setOAuthConsumerKey("")
-				.setOAuthConsumerSecret("")
-				.setOAuthAccessToken(null)
-				.setOAuthAccessTokenSecret(null);
+				.setOAuthConsumerKey(oAuthConsumerConfig.getConsumerKey())
+				.setOAuthConsumerSecret(oAuthConsumerConfig.getConsumerKey())
+				.setOAuthAccessToken(oAuthConfig.getAccessToken())
+				.setOAuthAccessTokenSecret(oAuthConfig.getAccessTokenSecret());
 		TwitterFactory tf = new TwitterFactory(cb.build());
 		twitter = tf.getInstance();
+
 		if (oAuthConfig.getAccessToken().length() < 1){
 			oauthStart();
 		}else {
