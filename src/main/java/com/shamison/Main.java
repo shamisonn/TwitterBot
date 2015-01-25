@@ -1,24 +1,15 @@
 package com.shamison;
 
-import com.shamison.TwitterUtils.OAuth;
-import com.shamison.TwitterUtils.TwitterUtils;
-import com.shamison.config.Config;
+import com.shamison.GUI.MainWindow;
 
 /**
- * Created by shamison on 14/12/15.
+ * Mainクラスのみがあるクラス.
  */
-
 public class Main {
-	private static Config config;
-	private static TwitterUtils tu;
-
 	public static void main(String[] args) {
-		config = new Config();
-		tu = new TwitterUtils();
-		tu.tweet("TESTマン");
-	}
-
-	public static Main getInstance() {
-		return new Main();
+		// Tweetするための画面を作る.
+		MainWindow mw = new MainWindow("Tweet画面");
+		// 画面を開く
+		mw.open();
 	}
 }

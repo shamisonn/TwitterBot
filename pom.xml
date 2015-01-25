@@ -10,18 +10,6 @@
 
 
     <build>
-        <resources>
-            <resource>
-                <targetPath>.</targetPath>
-                <filtering>false</filtering>
-                <directory>src/main/resources/</directory>
-                <includes>
-                    <include>twitter4j.properties</include>
-                    <include>oauth_config.properties</include>
-                    <include>oauth_consumer.properties</include>
-                </includes>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -74,12 +62,6 @@
             <groupId>org.twitter4j</groupId>
             <artifactId>twitter4j-core</artifactId>
             <version>4.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>

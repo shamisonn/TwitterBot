@@ -10,11 +10,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-
 /**
- * Created by shamison on 14/12/24.
- * <p/>
- * Swingで実装するGUI部分のコード
+ * OAuth認証のためにのみ使われる画面についてのクラス.
  */
 public class OauthWindow extends Thread implements ActionListener {
 	private JFrame jFrame;
@@ -26,12 +23,18 @@ public class OauthWindow extends Thread implements ActionListener {
 
 	private String pin;
 
-	//初期状態の画面を作成する.
+	/**
+	 *
+	 * @param title
+	 * @param oauthUrl
+	 * コンストラクタ.
+	 * 引数にはwindowのタイトルとOAuth認証の際にアクセスするURLがある.
+	 */
 	public OauthWindow(String title, String oauthUrl) {
 		jFrame = new JFrame(title);
 		jPanel = new JPanel();
 		jLabel = new JLabel();
-		setLabel(oauthUrl);
+		setLabel(oauthUrl);		//jLabelのsetterにURLの文字列を渡す.
 		oauthButton = new JButton("OPEN");
 		pinButton = new JButton("PUSH");
 		jTextField = new JTextField("Input_PIN_Number_Here");
@@ -43,10 +46,10 @@ public class OauthWindow extends Thread implements ActionListener {
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	//同期処理を行い,pinコードを入力されるまで待つ.
+	//同期処理を行い,OAuth認証の際のPINコードを入力されるまで待つ.
 	@Override
 	synchronized public void run() {
-		open();
+		open();		//windowを開く
 		try {
 			// pinコードが入力されるまで処理をまつ
 			wait();
@@ -61,7 +64,7 @@ public class OauthWindow extends Thread implements ActionListener {
 		jPanel.add(jLabel);
 	}
 
-	//OAuthURIとOPENボタン画面を開く
+	//OAuthURIとブラウザをOPENするボタン画面を開く.
 	public void open() {
 		jPanel.add(oauthButton);
 		jFrame.add(jPanel);
@@ -80,7 +83,6 @@ public class OauthWindow extends Thread implements ActionListener {
 		jFrame.setVisible(true);
 	}
 
-
 	@Override
 	synchronized public void actionPerformed(ActionEvent actionEvent) {
 		// Buttonが押された際,URL(OAuth認証のために)にアクセスする.
@@ -88,31 +90,35 @@ public class OauthWindow extends Thread implements ActionListener {
 			Desktop desktop = Desktop.getDesktop();
 			try {
 				URI uri = new URI(jLabel.getText());
+				// 既定のブラウザを開く.
 				desktop.browse(uri);
 			} catch (URISyntaxException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			// pin入力画面に切り替える.
+			// PIN入力画面に切り替える.
 			this.reOpen();
 		}
 
+		// PINを入力する.その際,入力されている文字列が数字であるか判定する.
 		if (actionEvent.getSource() == pinButton
 				&& NumberUtils.isNumber(jTextField.getText())) {
-			// pinコードを取得
+			// pinコードを入力
 			setPin(jTextField.getText());
 			jFrame.setVisible(false);
 			jFrame.removeAll();
-			//waitを解除
+			// waitを解除
 			notifyAll();
 		}
 	}
 
+	// PINのsetter
 	private void setPin(String pin) {
 		this.pin = pin;
 	}
 
+	// PINのgetter
 	public String getPin() {
 		return pin;
 	}
