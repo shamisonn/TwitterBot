@@ -14,13 +14,10 @@ public class TwitterUtils {
 
 	public TwitterUtils() {
 		this.oAuth = new OAuth();
-		if (oAuth.isOAuthNull()) {
-			oAuth.oauthStart();
-		}
-		twitter = TwitterFactory.getSingleton();
+		twitter = oAuth.getTwitter();
 	}
 
-	public void tweet(String tw){
+	public void tweet(String tw) {
 		try {
 			Status status = twitter.updateStatus(tw);
 		} catch (TwitterException e) {

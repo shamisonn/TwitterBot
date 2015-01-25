@@ -2,7 +2,6 @@ package com.shamison.TwitterUtils;
 
 import com.shamison.GUI.OauthWindow;
 import com.shamison.config.OAuthConfig;
-import com.shamison.config.OAuthConsumerConfig;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -14,28 +13,26 @@ import twitter4j.conf.ConfigurationBuilder;
  * Created by shamison on 14/12/15.
  */
 
-public class OAuth{
+public class OAuth {
 	private String reqUrl;
 	private Twitter twitter;
 	private OAuthConfig oAuthConfig;
-	private OAuthConsumerConfig oAuthConsumerConfig;
 	private AccessToken accessToken;
 
-	public OAuth(){
+	public OAuth() {
 		oAuthConfig = new OAuthConfig();
-		oAuthConsumerConfig = new OAuthConsumerConfig();
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
-				.setOAuthConsumerKey(oAuthConsumerConfig.getConsumerKey())
-				.setOAuthConsumerSecret(oAuthConsumerConfig.getConsumerKey())
+				.setOAuthConsumerKey(oAuthConfig.getConsumerKey())
+				.setOAuthConsumerSecret(oAuthConfig.getConsumerSecret())
 				.setOAuthAccessToken(oAuthConfig.getAccessToken())
 				.setOAuthAccessTokenSecret(oAuthConfig.getAccessTokenSecret());
 		TwitterFactory tf = new TwitterFactory(cb.build());
 		twitter = tf.getInstance();
 
-		if (oAuthConfig.getAccessToken().length() < 1){
+		if (oAuthConfig.isTokenEmpty()) {
 			oauthStart();
-		}else {
+		} else {
 			accessToken = new AccessToken(oAuthConfig.getAccessToken(), oAuthConfig.getAccessTokenSecret());
 			twitter.setOAuthAccessToken(accessToken);
 		}
@@ -70,7 +67,10 @@ public class OAuth{
 			e.printStackTrace();
 		}
 		twitter.setOAuthAccessToken(accessToken);
-		oAuthConfig.setTokens(accessToken.getToken(),accessToken.getTokenSecret());
+		oAuthConfig.setTokens(accessToken.getToken(), accessToken.getTokenSecret());
+	}
 
+	public Twitter getTwitter() {
+		return twitter;
 	}
 }

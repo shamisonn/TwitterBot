@@ -18,7 +18,7 @@ public class Main {
 		tu.tweet("TESTマン");
 	}
 
-	public static Main getInstance(){
+	public static Main getInstance() {
 		return new Main();
 	}
 }

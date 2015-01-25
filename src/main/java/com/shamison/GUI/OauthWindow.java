@@ -113,7 +113,7 @@ public class OauthWindow extends Thread implements ActionListener {
 		this.pin = pin;
 	}
 
-	public String  getPin() {
+	public String getPin() {
 		return pin;
 	}
 }

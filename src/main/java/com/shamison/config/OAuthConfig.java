@@ -16,6 +16,8 @@ public class OAuthConfig {
 
 	private String accessToken;
 	private String accessTokenSecret;
+	private String consumerKey;
+	private String consumerSecret;
 
 	public OAuthConfig() {
 		properties = new Properties();
@@ -26,6 +28,9 @@ public class OAuthConfig {
 		}
 		accessTokenSecret = properties.getProperty("accessTokenSecret");
 		accessToken = properties.getProperty("accessToken");
+		consumerKey = properties.getProperty("consumerKey");
+		consumerSecret = properties.getProperty("consumerSecret");
+
 	}
 
 	public void setTokens(String token, String tokenSecret) {
@@ -36,24 +41,39 @@ public class OAuthConfig {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
+	public String getConsumerKey() {
+		consumerKey = properties.getProperty("consumerKey");
+		return consumerKey;
+	}
+
+	public String getConsumerSecret() {
+		consumerSecret = properties.getProperty("consumerSecret");
+		return consumerSecret;
+	}
 
 	public String getAccessToken() {
 		accessToken = properties.getProperty("accessToken");
+		if (accessToken.isEmpty())
+			return null;
 		return accessToken;
-
 	}
 
 	public String getAccessTokenSecret() {
 		accessTokenSecret = properties.getProperty("accessTokenSecret");
+		if (accessTokenSecret.isEmpty())
+			return null;
 		return accessTokenSecret;
 	}
 
 	public String getFilePath() {
-
 		return Main.getInstance().getClass().getResource("/oauth_config.properties").toString().replaceFirst("file:", "");
 	}
 
+	public boolean isTokenEmpty() {
+		if (accessToken.isEmpty() || accessToken.isEmpty())
+			return true;
+		return false;
+	}
 }
