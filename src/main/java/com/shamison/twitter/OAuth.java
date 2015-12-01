@@ -1,6 +1,6 @@
-package com.shamison.TwitterUtils;
+package com.shamison.twitter;
 
-import com.shamison.GUI.OauthWindow;
+import com.shamison.window.OAuthWindow;
 import com.shamison.config.OAuthConfig;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -28,22 +28,21 @@ public class OAuth {
         twitter = tf.getInstance();
     }
 
-    public void getKeys() {
+    private void getKeys() {
         try {
             // キー取得用のURLを取得する.
             RequestToken requestToken = twitter.getOAuthRequestToken();
 
             // 認証用のGUIのオブジェクトをインスタンス化
-            OauthWindow oauthWindow = new OauthWindow("認証画面", requestToken.getAuthorizationURL());
+            OAuthWindow OAuthWindow = new OAuthWindow("認証画面", requestToken.getAuthorizationURL());
 
             // GUIを開く
-            Thread t = new Thread(oauthWindow);
-            t.start();
+            OAuthWindow.start();
             // PINを取得したらここに戻ってくる.
-            t.join();
+            OAuthWindow.join();
 
             // accessTokenを設定.
-            AccessToken accessToken = twitter.getOAuthAccessToken(requestToken, oauthWindow.getPin());
+            AccessToken accessToken = twitter.getOAuthAccessToken(requestToken, OAuthWindow.getPin());
             // accessTokenをセットし,認証を終える.
             twitter.setOAuthAccessToken(accessToken);
             // 認証の永続化のためにoauth_config.propertiesにキーを保存.

@@ -1,4 +1,4 @@
-package com.shamison.GUI;
+package com.shamison.window;
 
 import org.apache.commons.lang.math.NumberUtils;
 
@@ -11,7 +11,7 @@ import java.net.URISyntaxException;
 /**
  * OAuth認証のためにのみ使われる画面についてのクラス.
  */
-public class OauthWindow implements Runnable {
+public class OAuthWindow extends Thread {
     private JFrame jFrame;
     private JLabel jLabel;
     private JPanel jPanel;
@@ -21,7 +21,7 @@ public class OauthWindow implements Runnable {
 
     private String pin;
 
-    public OauthWindow(String title, String oauthUrl) {
+    public OAuthWindow(String title, String oauthUrl) {
         jFrame = new JFrame(title);
         jPanel = new JPanel();
         jLabel = new JLabel();
@@ -75,7 +75,7 @@ public class OauthWindow implements Runnable {
     }
 
     //OAuthURIとブラウザをOPENするボタン画面を開く.
-    public void openUrlWindow() {
+    private void openUrlWindow() {
         jPanel.add(oauthButton);
         jFrame.add(jPanel);
         jFrame.pack();
@@ -94,7 +94,6 @@ public class OauthWindow implements Runnable {
 
     // PINのgetter
     public String getPin() {
-        System.out.println(pin);
         return pin;
     }
 
