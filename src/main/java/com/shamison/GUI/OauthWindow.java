@@ -11,7 +11,7 @@ import java.net.URISyntaxException;
 /**
  * OAuth認証のためにのみ使われる画面についてのクラス.
  */
-public class OauthWindow implements Runnable {
+public class OauthWindow extends Thread {
     private JFrame jFrame;
     private JLabel jLabel;
     private JPanel jPanel;

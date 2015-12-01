@@ -37,10 +37,9 @@ public class OAuth {
             OauthWindow oauthWindow = new OauthWindow("認証画面", requestToken.getAuthorizationURL());
 
             // GUIを開く
-            Thread t = new Thread(oauthWindow);
-            t.start();
+            oauthWindow.start();
             // PINを取得したらここに戻ってくる.
-            t.join();
+            oauthWindow.join();
 
             // accessTokenを設定.
             AccessToken accessToken = twitter.getOAuthAccessToken(requestToken, oauthWindow.getPin());
