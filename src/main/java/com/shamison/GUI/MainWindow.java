@@ -4,60 +4,46 @@ import com.shamison.TwitterUtils.TwitterUtils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Tweetするための画面についてのクラス
  */
-public class MainWindow implements ActionListener {
-	private JFrame jFrame;
-	private JPanel jPanel;
-	private JButton jButton;
-	private JTextArea jTextArea;
+public class MainWindow {
+    private JFrame jFrame;
 
-	private TwitterUtils tu;
+    public MainWindow(String title) {
+        JButton jButton;
+        JTextArea jTextArea;
 
-	/**
-	 *
-	 * @param title
-	 * GUIWindowのタイトルを引数にとる.
-	 */
-	public MainWindow(String title) {
-		// Twitterへのやり取りをするクラスをインスタンス化.
-		tu = new TwitterUtils();
+        // Twitterへのやり取りをするクラスをインスタンス化.
+        TwitterUtils tu = new TwitterUtils();
 
-		jFrame = new JFrame(title);
-		jPanel = new JPanel();
-		jTextArea = new JTextArea();
-		jTextArea.setPreferredSize(new Dimension(200, 100));
-		jButton = new JButton("SEND");
+        jFrame = new JFrame(title);
+        JPanel jPanel = new JPanel();
+        jTextArea = new JTextArea();
+        jButton = new JButton("SEND");
 
-		jButton.addActionListener(this);
+        jTextArea.setPreferredSize(new Dimension(200, 100));
 
-		jFrame.setBounds(200, 200, 400, 160);
-		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jButton.addActionListener(e -> {
+            if (jTextArea.getText().length() < 141)
+                tu.tweet(jTextArea.getText());
+        });
 
-	}
+        jFrame.setBounds(200, 200, 400, 160);
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// text areaの文字列が140文字以下だったらツイート
-		if (e.getSource() == jButton
-				&& jTextArea.getText().length() < 141) {
-			// ツイートする.
-			tu.tweet(jTextArea.getText());
-		}
-	}
+        jPanel.add(jTextArea);
+        jPanel.add(jButton);
 
-	/**
-	 * GUIWindowを開く
-	 */
-	public void open() {
-		jPanel.add(jTextArea);
-		jPanel.add(jButton);
-		jFrame.add(jPanel);
-		jFrame.pack();
-		jFrame.setVisible(true);
-	}
+        jFrame.add(jPanel);
+        jFrame.pack();
+    }
+
+    /**
+     * GUIWindowを開く
+     */
+    public void open() {
+        jFrame.setVisible(true);
+    }
 }
