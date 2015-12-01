@@ -1,18 +1,18 @@
-package com.shamison.TwitterUtils;
+package com.shamison.twitter;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
-public class TwitterUtils {
+public class Tweet {
     private Twitter twitter;
 
-    public TwitterUtils() {
+    public Tweet() {
         // OAuth認証をするクラスをインスタンス化
         OAuth oAuth = new OAuth();
         twitter = oAuth.getTwitter();
     }
 
-    public void tweet(String tw) {
+    public void tw(String tw) {
         try {
             twitter.updateStatus(tw);
         } catch (TwitterException e) {
